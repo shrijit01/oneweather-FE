@@ -1,0 +1,42 @@
+.navbar {
+    /* position: fixed; */
+    height: 10vh;
+    width: 100%;
+    display: flex;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(225, 234, 244, 0.822);
+}
+
+.navbar>i{
+    display: none;
+}
+
+.heading {
+    font-weight: 500;
+    font-size: 3vw;
+}
+
+
+
+@media screen and (max-width: 480px) {
+    .navbar {
+        display: flex;
+        padding: 0 20px;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .navbar>i{
+        font-weight: 500;
+        font-size: 25px;
+        display: block;
+    }
+
+    .heading {
+        font-weight: 500;
+        font-size: 25px;
+        letter-spacing: 1px;
+    }
+}
