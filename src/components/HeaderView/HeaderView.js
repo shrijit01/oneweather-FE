@@ -23,7 +23,7 @@ export default function HeaderView({ weatherData, handlePuneWeather, bgImage }) 
                 const data = await response.json();
                 setPuneWeather(data);
                 handlePuneWeather(data);
-                fetchBackgroundImage(bgImage);
+                fetchBackgroundImage(data.weather[0].main);
             } catch (error) {
                 alert("Error fetching City weather data");
                 console.error('Error fetching Pune weather data:', error);
@@ -33,7 +33,7 @@ export default function HeaderView({ weatherData, handlePuneWeather, bgImage }) 
         if (bgImage) {
             fetchBackgroundImage(bgImage);
         }
-    }, []);
+    }, [bgImage, handlePuneWeather]);
 
 
 
