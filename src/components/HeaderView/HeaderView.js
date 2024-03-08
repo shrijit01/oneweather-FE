@@ -33,7 +33,7 @@ export default function HeaderView({ weatherData, handlePuneWeather, bgImage }) 
         fetchWeatherData();
 
         fetchBackgroundImage(bgImage);
-    }, [bgImage,handlePuneWeather]);
+    }, [bgImage]);
 
 
 

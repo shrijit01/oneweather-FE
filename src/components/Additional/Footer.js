@@ -7,13 +7,22 @@ export default function Footer({ puneWeather, weatherData, graphData }) {
     let temperatureChartInstance = useRef(null);
     let isChartInitialized = useRef(false);
 
+    useEffect(() => {
+        if (graphData && graphData.length > 0 && isChartInitialized.current) {
+            updateTemperatureChart();
+        } else if (puneWeather && !isChartInitialized.current) {
+            renderTemperatureChart();
+            isChartInitialized.current = true;
+        }
+    }, [graphData, puneWeather]);
+
     const renderTemperatureChart = () => {
         const ctx = temperatureChartRef.current.getContext('2d');
         const data = graphData.map(item => item.main.temp);
         temperatureChartInstance.current = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: 'none',
+                labels: 'none', 
                 datasets: [{
                     label: 'Temperature',
                     data: data,
@@ -34,7 +43,7 @@ export default function Footer({ puneWeather, weatherData, graphData }) {
                 },
                 scales: {
                     x: {
-                        display: false
+                        display: false 
                     },
                     y: {
                         beginAtZero: true
@@ -57,17 +66,6 @@ export default function Footer({ puneWeather, weatherData, graphData }) {
             temperatureChartInstance.current.update();
         }
     };
-
-    useEffect(() => {
-        if (graphData && graphData.length > 0 && isChartInitialized.current) {
-            updateTemperatureChart();
-        } else if (puneWeather && !isChartInitialized.current) {
-            renderTemperatureChart();
-            isChartInitialized.current = true;
-        }
-    }); {/* [graphData, puneWeather] */}
-
-
 
     return (
         <div className={style.footerContainer}>
