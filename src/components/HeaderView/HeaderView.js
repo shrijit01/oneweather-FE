@@ -17,24 +17,25 @@ export default function HeaderView({ weatherData, handlePuneWeather, bgImage }) 
 
 
     useEffect(() => {
-
+        const fetchWeatherData = async () => {
+            try {
+                const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=pune&appid=${API_KEY}&units=metric`);
+                const data = await response.json();
+                setPuneWeather(data);
+                handlePuneWeather(data);
+                // handleGraph(data);
+                fetchBackgroundImage(data.weather[0].main);
+            } catch (error) {
+                // alert("Error fetching City weather data");
+                console.error('Error fetching Pune weather data:', error);
+            }
+        };
         fetchWeatherData();
-        fetchBackgroundImage(bgImage);
-    }, [bgImage]);
 
-    const fetchWeatherData = async () => {
-        try {
-            const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=pune&appid=${API_KEY}&units=metric`);
-            const data = await response.json();
-            setPuneWeather(data);
-            handlePuneWeather(data);
-            // handleGraph(data);
-            fetchBackgroundImage(data.weather[0].main);
-        } catch (error) {
-            // alert("Error fetching City weather data");
-            console.error('Error fetching Pune weather data:', error);
-        }
-    };
+        fetchBackgroundImage(bgImage);
+    }, [bgImage,handlePuneWeather]);
+
+
 
     const getWeatherIcon = (weatherCode) => {
         switch (weatherCode) {
