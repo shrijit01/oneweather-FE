@@ -65,7 +65,7 @@ export default function Footer({ puneWeather, weatherData, graphData }) {
             renderTemperatureChart();
             isChartInitialized.current = true;
         }
-    }, [renderTemperatureChart, updateTemperatureChart]); {/* [graphData, puneWeather] */}
+    }); {/* [graphData, puneWeather] */}
 
 
 
