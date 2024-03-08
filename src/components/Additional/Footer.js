@@ -8,64 +8,65 @@ export default function Footer({ puneWeather, weatherData, graphData }) {
     let isChartInitialized = useRef(false);
 
     useEffect(() => {
+        const renderTemperatureChart = () => {
+            const ctx = temperatureChartRef.current.getContext('2d');
+            const data = graphData.map(item => item.main.temp);
+            temperatureChartInstance.current = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: 'none',
+                    datasets: [{
+                        label: 'Temperature',
+                        data: data,
+                        borderColor: 'orange',
+                        borderWidth: 1,
+                        fill: true,
+                    }]
+                },
+                options: {
+                    animations: {
+                        tension: {
+                            duration: 1000,
+                            easing: 'linear',
+                            from: 1,
+                            to: 0,
+                            loop: false
+                        }
+                    },
+                    scales: {
+                        x: {
+                            display: false
+                        },
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        }
+                    }
+                }
+            });
+        };
+
+        const updateTemperatureChart = () => {
+            if (temperatureChartInstance.current !== null) {
+                temperatureChartInstance.current.data.labels = graphData.map(item => item.dt_txt);
+                temperatureChartInstance.current.data.datasets[0].data = graphData.map(item => item.main.temp);
+                temperatureChartInstance.current.update();
+            }
+        };
         if (graphData && graphData.length > 0 && isChartInitialized.current) {
             updateTemperatureChart();
         } else if (puneWeather && !isChartInitialized.current) {
             renderTemperatureChart();
             isChartInitialized.current = true;
         }
-    }, [graphData]);
+    }, [graphData,puneWeather]);
 
-    const renderTemperatureChart = () => {
-        const ctx = temperatureChartRef.current.getContext('2d');
-        const data = graphData.map(item => item.main.temp);
-        temperatureChartInstance.current = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: 'none', 
-                datasets: [{
-                    label: 'Temperature',
-                    data: data,
-                    borderColor: 'orange',
-                    borderWidth: 1,
-                    fill: true,
-                }]
-            },
-            options: {
-                animations: {
-                    tension: {
-                        duration: 1000,
-                        easing: 'linear',
-                        from: 1,
-                        to: 0,
-                        loop: false
-                    }
-                },
-                scales: {
-                    x: {
-                        display: false 
-                    },
-                    y: {
-                        beginAtZero: true
-                    }
-                },
-                plugins: {
-                    legend: {
-                        display: true,
-                        position: 'top'
-                    }
-                }
-            }
-        });
-    };
 
-    const updateTemperatureChart = () => {
-        if (temperatureChartInstance.current !== null) {
-            temperatureChartInstance.current.data.labels = graphData.map(item => item.dt_txt);
-            temperatureChartInstance.current.data.datasets[0].data = graphData.map(item => item.main.temp);
-            temperatureChartInstance.current.update();
-        }
-    };
 
     return (
         <div className={style.footerContainer}>
