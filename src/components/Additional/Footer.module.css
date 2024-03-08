@@ -1,7 +1,7 @@
 .footerContainer {
     width: 90%;
     gap: 20px;
-    height: 150px;
+    height: 180px;
     margin: 0 auto;
     display: flex;
     position: relative;
@@ -11,9 +11,10 @@
 
 .footer {
     display: flex;
+    gap: 20px;
     height: 100%;
     width: 50%;
-    padding: 10px 20px;
+    padding: 25px 20px;
     border-radius: 15px;
     flex-direction: column;
     background-color: rgba(217, 217, 217, 0.573);
@@ -33,6 +34,7 @@
 }
 
 .right {
+    position: relative;
     height: 100%;
     width: 50%;
     padding: 10px 20px;
@@ -50,7 +52,6 @@
         flex-direction: column;
         width: 90%;
         margin: 0 auto;
-        /* height: 200px; */
         /* background-color: rgb(206, 171, 171); */
     }
 
@@ -71,5 +72,9 @@
         padding: 10px 20px;
         border-radius: 15px;
         background-color: rgba(217, 217, 217, 0.573);
+    }
+
+    #temperatureChart{
+        height: 1000px;
     }
 }

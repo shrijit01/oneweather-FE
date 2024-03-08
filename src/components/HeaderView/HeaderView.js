@@ -7,7 +7,6 @@ export default function HeaderView({ weatherData, handlePuneWeather, bgImage }) 
     const [puneWeather, setPuneWeather] = useState(null);
     const [backgroundImage, setBackgroundImage] = useState('');
 
-    console.log(bgImage);
 
     const currentDate = new Date();
     const formattedDate = currentDate.toLocaleDateString('en-US', {
@@ -16,26 +15,26 @@ export default function HeaderView({ weatherData, handlePuneWeather, bgImage }) 
         year: 'numeric'
     });
 
+
     useEffect(() => {
-        const fetchWeatherData = async () => {
-            try {
-                const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=pune&appid=${API_KEY}&units=metric`);
-                const data = await response.json();
-                setPuneWeather(data);
-                handlePuneWeather(data);
-                fetchBackgroundImage(data.weather[0].main);
-            } catch (error) {
-                alert("Error fetching City weather data");
-                console.error('Error fetching Pune weather data:', error);
-            }
-        };
+
         fetchWeatherData();
-        if (bgImage) {
-            fetchBackgroundImage(bgImage);
+        fetchBackgroundImage(bgImage);
+    }, [bgImage]);
+
+    const fetchWeatherData = async () => {
+        try {
+            const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=pune&appid=${API_KEY}&units=metric`);
+            const data = await response.json();
+            setPuneWeather(data);
+            handlePuneWeather(data);
+            // handleGraph(data);
+            fetchBackgroundImage(data.weather[0].main);
+        } catch (error) {
+            // alert("Error fetching City weather data");
+            console.error('Error fetching Pune weather data:', error);
         }
-    }, [bgImage, handlePuneWeather]);
-
-
+    };
 
     const getWeatherIcon = (weatherCode) => {
         switch (weatherCode) {
@@ -56,13 +55,13 @@ export default function HeaderView({ weatherData, handlePuneWeather, bgImage }) 
 
     const fetchBackgroundImage = async (weatherCondition) => {
         try {
-            // console.log(weatherCondition);
+            // console.log("weatherCondition",weatherCondition);
             const response = await fetch(`https://api.unsplash.com/photos/random?query=${weatherCondition}&client_id=${UNSPLASH_API_KEY}`);
-            // if (!response.ok) {
-            //     throw new Error('Failed to fetch background image');
-            // }
+            if (!response.ok) {
+                throw new Error('Failed to fetch background image');
+            }
             const data = await response.json();
-            // console.log(data.urls);
+            // console.log(data.urls.regular);
             setBackgroundImage(data.urls.regular);
         } catch (error) {
             console.error('Error fetching background image:', error);

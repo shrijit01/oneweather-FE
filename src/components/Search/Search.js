@@ -3,7 +3,7 @@ import style from './Search.module.css';
 
 const API_KEY = '76d74473ab802ee410e07a4df7c64000';
 
-export default function Search({ handleInput, handleHourData }) {
+export default function Search({ handleInput, handleHourData , handleGraph}) {
     const [city, setCity] = useState('');
 
     const handleInputChange = (e) => {
@@ -17,6 +17,7 @@ export default function Search({ handleInput, handleHourData }) {
             e.preventDefault();
             setCity('');
             await fetchWeatherData();
+            await fetchHourlyWeatherData()
         }
 
     };
@@ -24,13 +25,17 @@ export default function Search({ handleInput, handleHourData }) {
     const fetchWeatherData = async () => {
         try {
             const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`);
-            // if (!response.ok) {
-            //     throw new Error('City not found');
-            // }
             const data = await response.json();
-            handleInput(data)
+
+            // Check if the response contains an error message
+            if (data.cod && data.cod === "404") {
+                throw new Error(data.message);
+            }
+
+            handleInput(data);
         } catch (error) {
             console.error('Error fetching weather data:', error);
+            alert("City not found. Please enter a valid city name.");
         }
     };
 
@@ -41,7 +46,7 @@ export default function Search({ handleInput, handleHourData }) {
 
             const data = await response.json();
             const hourlyData = data.list.slice(0, 24);
-            console.log(hourlyData);
+            handleGraph(hourlyData);
             handleHourData(hourlyData);
         } catch (error) {
             console.error('Error fetching hourly weather data:', error);

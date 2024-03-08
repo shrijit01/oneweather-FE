@@ -12,12 +12,12 @@ function App() {
   const [weatherData, setWeatherData] = useState('');
   const [hourlyData, setHourlyData] = useState([]);
   const [puneWeather, setPuneWeather] = useState(null);
+  const [graphData,setGraphData] = useState([]);
 
   const handleInput = (data) => {
     setWeatherData(data);
     setBgImage(data.weather[0].main);
   };
-  // console.log(bgImage);
 
   const handlePuneWeather = (puneData) => {
     setPuneWeather(puneData);
@@ -25,16 +25,20 @@ function App() {
 
   const handleHourData = (hourData) => {
     setHourlyData(hourData);
-    console.log("hourData", hourlyData);
   };
+
+  const handleGraph =(graph)=>{
+    console.log(graph);
+    setGraphData(graph)
+  }
 
   return (
     <div className="App">
       <Navbar />
-      <Search handleInput={handleInput} handleHourData={handleHourData} />
+      <Search handleInput={handleInput} handleHourData={handleHourData}  handleGraph={handleGraph}/>
       <HeaderView weatherData={weatherData} handlePuneWeather={handlePuneWeather} bgImage={bgImage} />
       <Hourcard hourlyData={hourlyData} />
-      <Footer puneWeather={puneWeather} weatherData={weatherData} />
+      <Footer puneWeather={puneWeather} weatherData={weatherData} graphData={graphData}/>
     </div>
   );
 }
