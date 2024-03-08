@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import style from './HeaderView.module.css';
 const API_KEY = '76d74473ab802ee410e07a4df7c64000';
-const UNSPLASH_API_KEY = 'd9-mSIfoZC7zt8fqgQFzE1mZspeS86RdPN_CMGtsfgg';
+// const UNSPLASH_API_KEY = 'd9-mSIfoZC7zt8fqgQFzE1mZspeS86RdPN_CMGtsfgg';
 
 export default function HeaderView({ weatherData, handlePuneWeather, bgImage }) {
     const [puneWeather, setPuneWeather] = useState(null);
-    const [backgroundImage, setBackgroundImage] = useState('');
+    // const [backgroundImage, setBackgroundImage] = useState('');
 
 
     const currentDate = new Date();
@@ -17,24 +17,23 @@ export default function HeaderView({ weatherData, handlePuneWeather, bgImage }) 
 
 
     useEffect(() => {
-        const fetchWeatherData = async () => {
-            try {
-                const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=pune&appid=${API_KEY}&units=metric`);
-                const data = await response.json();
-                setPuneWeather(data);
-                handlePuneWeather(data);
-                // handleGraph(data);
-                fetchBackgroundImage(data.weather[0].main);
-            } catch (error) {
-                // alert("Error fetching City weather data");
-                console.error('Error fetching Pune weather data:', error);
-            }
-        };
+
         fetchWeatherData();
+    });
 
-        fetchBackgroundImage(bgImage);
-    }, [bgImage]);
-
+    const fetchWeatherData = async () => {
+        try {
+            const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=pune&appid=${API_KEY}&units=metric`);
+            const data = await response.json();
+            setPuneWeather(data);
+            handlePuneWeather(data);
+            // handleGraph(data);
+            // fetchBackgroundImage(data.weather[0].main);
+        } catch (error) {
+            // alert("Error fetching City weather data");
+            console.error('Error fetching Pune weather data:', error);
+        }
+    };
 
 
     const getWeatherIcon = (weatherCode) => {
@@ -54,20 +53,20 @@ export default function HeaderView({ weatherData, handlePuneWeather, bgImage }) 
         }
     };
 
-    const fetchBackgroundImage = async (weatherCondition) => {
-        try {
-            // console.log("weatherCondition",weatherCondition);
-            const response = await fetch(`https://api.unsplash.com/photos/random?query=${weatherCondition}&client_id=${UNSPLASH_API_KEY}`);
-            if (!response.ok) {
-                throw new Error('Failed to fetch background image');
-            }
-            const data = await response.json();
-            // console.log(data.urls.regular);
-            setBackgroundImage(data.urls.regular);
-        } catch (error) {
-            console.error('Error fetching background image:', error);
-        }
-    };
+    // const fetchBackgroundImage = async (weatherCondition) => {
+    //     try {
+    //         // console.log("weatherCondition",weatherCondition);
+    //         const response = await fetch(`https://api.unsplash.com/photos/random?query=${weatherCondition}&client_id=${UNSPLASH_API_KEY}`);
+    //         if (!response.ok) {
+    //             throw new Error('Failed to fetch background image');
+    //         }
+    //         const data = await response.json();
+    //         // console.log(data.urls.regular);
+    //         setBackgroundImage(data.urls.regular);
+    //     } catch (error) {
+    //         console.error('Error fetching background image:', error);
+    //     }
+    // };
 
 
     return (
@@ -105,9 +104,10 @@ export default function HeaderView({ weatherData, handlePuneWeather, bgImage }) 
                 </>
             </div>
             <div className={style.right}>
-                {backgroundImage ? <img src={backgroundImage} alt='weather' />
-                    : <img src='https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?q=80&w=1965&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' alt='weather' />
-                }
+                {/* {backgroundImage ? <img src={backgroundImage} alt='weather' />
+                    : 
+                } */}
+                    <img src='https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?q=80&w=1965&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' alt='weather' />
             </div>
         </div>
     )
