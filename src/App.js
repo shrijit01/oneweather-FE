@@ -28,7 +28,7 @@ function App() {
   };
 
   const handleGraph =(graph)=>{
-    console.log(graph);
+    // console.log(graph);
     setGraphData(graph)
   }
 
