@@ -20,7 +20,7 @@ export default function HeaderView({ weatherData, handlePuneWeather, bgImage }) 
 
         fetchWeatherData();
         fetchBackgroundImage(bgImage);
-    }, [bgImage]);
+    }, []);
 
     const fetchWeatherData = async () => {
         try {
