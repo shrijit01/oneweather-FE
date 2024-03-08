@@ -14,7 +14,7 @@ export default function Footer({ puneWeather, weatherData, graphData }) {
             renderTemperatureChart();
             isChartInitialized.current = true;
         }
-    }, [graphData, puneWeather]);
+    }, [graphData]);
 
     const renderTemperatureChart = () => {
         const ctx = temperatureChartRef.current.getContext('2d');
