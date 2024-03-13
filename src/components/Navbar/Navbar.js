@@ -8,7 +8,7 @@ export default function Navbar() {
                     <img src='Oneweather.png'  alt='one weather'/>
                 </a>
             {/* <i className="ri-search-line sp-01"></i> */}
-            <a href='https://github.com/shrijit01' target='_blank'><i className="ri-github-line"></i></a>
+            <a href='https://github.com/shrijit01' target='_blank' rel="noreferrer"><i className="ri-github-line"></i></a>
         </div>
     )
 }
