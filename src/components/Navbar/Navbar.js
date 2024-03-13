@@ -4,10 +4,11 @@ import style from './Navbar.module.css'
 export default function Navbar() {
     return (
         <div className={style.navbar}>
-            <h3 className={style.heading}>one weather</h3>
-            {/* <i className="ri-cloudy-2-line"></i> */}
+                <a className={style.heading} href='/'>
+                    <img src='Oneweather.png'  alt='one weather'/>
+                </a>
             {/* <i className="ri-search-line sp-01"></i> */}
-            <i className="ri-menu-line"></i>
+            <a href='https://github.com/shrijit01' target='_blank'><i className="ri-github-line"></i></a>
         </div>
     )
 }
