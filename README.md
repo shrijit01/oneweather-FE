@@ -19,6 +19,6 @@ Initial View Of Web Page
   
 Application Features: 
 Search weather BY city name or Country name by the input
-view weather in short card in the bottom cards we can view a total 24 weather data in that cards.
+view weather in short card in the bottom cards we can view a total 24Hours weather data in that cards.
 In bottom Additional information card we can see that additional info of weather.
 In the Bottom section i have Implimented A Feature Where we can see a tempreature in graph/Chart.   
